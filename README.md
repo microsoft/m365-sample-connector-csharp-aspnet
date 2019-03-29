@@ -1,3 +1,11 @@
+# Disclaimer
+
+Microsoft makes available this open source software (OSS) code (“Code”) to help create your own application to connect with a Facebook API in order to archive your Facebook data with Advanced eDiscovery.  This Code is not a Microsoft product or service and is instead licensed to you under the MIT license below.
+
+Your use of the Code is subject to GitHub terms and any access to Facebook and Facebook APIs with the Code is subject to Facebook terms. You are responsible for configuring and using the Code in accordance with GitHub terms, Facebook terms, and all other third party terms and applicable law. Microsoft is not party to any agreement between you and any third party (including Facebook and GitHub), with respect to your use of the Code. Microsoft is also not responsible for, and disclaims all liability related to, your use of the Code and any Facebook APIs or other platforms. These terms of service do not constitute legal advice, and we recommend that you consult with legal counsel before downloading the Code and enabling your application.
+
+Please note that, to the extent you are a Microsoft customer, only after you have successfully transferred your Facebook data into Advanced eDiscovery will such data be considered “Customer Data,” for purposes of the [Online Service Terms](http://www.microsoftvolumelicensing.com/DocumentSearch.aspx?Mode=3&DocumentTypeId=46) and [Privacy Statement](https://privacy.microsoft.com/en-ca/privacystatement). Microsoft is not responsible for, and disclaims all liability related to, any of your data used with the Code or Facebook until such time as it is Customer Data.
+
 
 # Contributing
 
