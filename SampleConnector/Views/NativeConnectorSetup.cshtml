@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+	<title>Connector Job Setup</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/Content/style.css" />
+</head>
+<body ng-app="MainApp">
+	<div class="container" ng-controller="NativeConnectorSetupCtrl">
+		<div class="mainContent">
+			<div class="row justify-content-center" ng-show="!isLoginComplete">
+				<div class="">
+					<div class="form-group">
+						<input type="password" ng-model="sharedSecretKey" class="form-control" placeholder="Shared Secret" />
+					</div>
+					<button class="btn btn-primary" ng-click="login()">Login to Connector Service</button>
+				</div>
+			</div>
+			<div class="row justify-content-center" ng-show="isSetupComplete">
+				<div>
+					<span>{{pageSaveMessage}}</span><br />
+					<button class="btn btn-success" ng-click="finishSetup()">Finish</button>
+				</div>
+			</div>
+
+			<div class="row justify-content-center" ng-show="!isSetupComplete && isLoginComplete">
+				<div ng-show="!isAuthenticated">
+					<div class="row padding-bottom10 padding-top10">
+						<button class="btn btn-primary signInButton" ng-click="openPopop()" ng-disabled="isbusy">Login with Facebook</button>
+					</div>
+                    <div class="row padding-bottom10 padding-top10" ng-show="noPageinAccount">
+                        <span style="color:Red">{{errorMessage}}</span><br />
+                    </div>
+				</div>
+				<div class="padding-top10" ng-show="isAuthenticated">
+					<button class="btn btn-info" ng-show="!isEntityListVisible" ng-click="showEntityList()">Select Pages</button>
+					<div ng-show="isEntityListVisible">
+						<h3>Select Page</h3>
+						<form>
+							<div ng-repeat="page in entities">
+								<div ng-if="page.AlreadyUsed" data-toggle="tooltip" data-placement="right" title="Job already exsists for this Page">
+									<input type="radio" name="pageRadio"  ng-disabled="page.AlreadyUsed" value="{{page.Name}}" />{{page.Name}}
+								</div>
+								<div ng-if="!page.AlreadyUsed">
+									<input type="radio" name="pageRadio" ng-model="page.selected" value="{{page.Name}}" />{{page.Name}}
+								</div>
+							</div>
+						</form>
+						<div class="padding-top10">
+							<button class="btn btn-primary" ng-click="saveJob()">Save</button>
+						</div>
+					</div>
+                    <div class="padding-top10" ng-show="noPageSelected">
+                        <span style="color:Red">{{errorMessage}}</span><br />
+                    </div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.5/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-sanitize.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.5/angular-cookies.js"></script>
+	<script src="~/ClientJs/AuthInterceptor.js"></script>
+	<script src="~/ClientJs/NativeConnectorSetupController.js"></script>
+</body>
+</html>

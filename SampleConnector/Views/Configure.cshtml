@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Connector Configuration</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/Content/style.css" />
+</head>
+<body ng-app="MainApp" ng-controller="ConfigureCtrl">
+    <div class="row justify-content-center" ng-show="!isLoginComplete">
+        <div class="">
+            <div class="form-group">
+                <input type="text" ng-model="tenantId" class="form-control" placeholder="Tenant Id" />
+            </div>
+            <div class="form-group">
+                <input type="password" ng-model="sharedSecretKey" class="form-control" placeholder="Shared Secret" />
+            </div>
+            <button class="btn btn-primary" ng-click="login()">Set Configuration Settings</button>
+        </div>
+    </div>
+
+    <form id="settings" runat="server" ng-show="isLoginComplete">
+        <h2> Configuration Details:</h2>
+        <table id="table1" cellspacing="5" cellpadding="5">
+            <tr>
+                <td align="left">Facebook Application ID:</td>
+                <td><input type="text" ng-model="FBAppIdValue" size="40"/></td>
+            </tr>
+            <tr>
+                <td align="left">Facebook Application Secret:</td>
+                <td><input type="text" ng-model="FBAppSecretValue" size="40" /></td>
+            </tr>
+            <tr>
+                <td align="left">Facebook Webhooks Verify Token:</td>
+                <td><input type="text" ng-model="FBVerifyTokenValue" size="40" /></td>
+            </tr>
+            <tr>
+                <td align="left">AAD Application ID:</td>
+                <td><input type="text" ng-model="AADAppIdValue" size="40" /></td>
+            </tr>
+            <tr>
+                <td align="left">AAD Application Secret:</td>
+                <td><input type="text" ng-model="AADAppSecretValue" size="40" /></td>
+            </tr>
+            <tr>
+                <td align="left">App Insights Instrumentation Key:</td>
+                <td><input type="text" ng-model="InstrumentationKeyValue" size="40" /></td>
+            </tr>
+            <tr>
+                <td><input type="button" value="Save" id="SaveButton" ng-disabled="isDisabledSaveButton" ng-click="SaveConfigSettings()" />
+                <td><input type="button" value="Back to Home Page" id="Home" ng-click="Home()" />
+            </tr>
+            <tr>
+                <td ng-show="isDisabledSaveButton"><span style="color:Green">{{configurationSavedMsg}}</span></td>
+            </tr>
+        </table>
+    </form>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.5/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-sanitize.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.5/angular-cookies.js"></script>
+    <script src="~/ClientJs/AuthInterceptor.js"></script>
+    <script src="~/ClientJs/ConfigureController.js"></script>
+</body>
+</html>
