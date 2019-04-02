@@ -1,0 +1,26 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+.container {
+    height: 100vh;
+}
+
+.mainContent {
+    position: relative;
+    top: 30%;
+}
+
+.signInButton {
+    width: 250px; 
+    background-color: #4065B3;
+}
+
+.padding-bottom10 {
+    padding-bottom: 10px;
+}
+
+.padding-top10 {
+    padding-top: 10px;
+}

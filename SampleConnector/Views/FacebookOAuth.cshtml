@@ -1,0 +1,32 @@
+﻿@using Sample.Connector
+@using Newtonsoft.Json;
+@using System.Web.Http.Owin;
+@using Microsoft.Owin;
+@{
+		string loginUrl = this.Request.QueryString["loginUrl"];
+		string state = this.Request.QueryString["state"];
+		string authCode = this.Request.QueryString["code"];
+		bool closePopup = false;
+
+
+		if (!string.IsNullOrEmpty(loginUrl))
+		{
+			this.Response.Redirect(FacebookOAuthHelper.GetOAuthUrl(HttpContext.Current.GetOwinContext(), loginUrl));
+		}
+		else if (!string.IsNullOrEmpty(authCode))
+		{
+			if (FacebookOAuthHelper.IsAuthenticRequest(HttpContext.Current.GetOwinContext(), state))
+			{
+				FacebookOAuthHelper.StoreToken(this.Request.GetOwinContext(), authCode, this.Request.Url);
+				closePopup = true;
+			}
+		}
+}
+
+@if (closePopup)
+{
+		<div>Closing window...</div>
+				<script type="text/javascript">
+					self.close();
+				</script>
+}
