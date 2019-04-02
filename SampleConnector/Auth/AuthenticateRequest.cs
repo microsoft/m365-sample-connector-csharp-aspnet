@@ -32,15 +32,6 @@ namespace Sample.Connector
                         isAuthorized = CheckIfCallerClaimIsAuthorized(claimsPrincipal.Claims);
                     }
                 }
-                if (isAuthorized == false)
-                {
-                    // Try the old shared secret auth check
-                    var sharedSecret = headers.Authorization.Parameter;
-                    if (sharedSecret != null && sharedSecret.Equals(Settings.APISecretKey))
-                    {
-                        isAuthorized = true;
-                    }
-                }
                 return isAuthorized;
             }
             // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization
@@ -71,12 +62,14 @@ namespace Sample.Connector
         private static bool CheckIfCallerClaimIsAuthorized(IEnumerable<Claim> currentClaims)
         {
             bool isAuthorized = false;
-            string whitelistedClientId = "7e3f2f3a-acbb-4457-904a-c39b82c9e861;570d0bec-d001-4c4e-985e-3ab17fdc3073";
+
+            // application id of microsoft o365 import connector platform
+            string importClientId = "570d0bec-d001-4c4e-985e-3ab17fdc3073";
             Claim appIdClaim = currentClaims.FirstOrDefault(c => c != null && c.Type != null && c.Type.ToLower().Equals("appid"));
 
             if (appIdClaim != null && !string.IsNullOrEmpty(appIdClaim.Value))
             {
-                isAuthorized = whitelistedClientId.Contains(appIdClaim.Value);
+                isAuthorized = importClientId.Equals(appIdClaim.Value);
             }
             string tenantId = ClaimsPrincipal.Current.FindFirst("http://schemas.microsoft.com/identity/claims/tenantid")?.Value;
             return isAuthorized && (tenantId != null);

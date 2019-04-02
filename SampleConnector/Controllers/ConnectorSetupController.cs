@@ -13,7 +13,7 @@ namespace Sample.Connector
     using Microsoft.WindowsAzure.Storage.Table;
 
     /// <summary>
-    /// API controller for all native connector setups
+    /// API controller for all connector setups
     /// </summary>
     [ApiAuthorizationModule]
     public class ConnectorSetupController : ApiController
@@ -57,7 +57,6 @@ namespace Sample.Connector
             }
 
             Trace.TraceInformation("Job with JobId: {0}, tenantId: {1} successfully set up", jobId, tenantId);
-            PageJobEntity pageJobEntity = pageJobEntityList?[0];
             return true;
         }
     }

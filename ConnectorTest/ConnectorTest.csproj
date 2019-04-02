@@ -95,9 +95,6 @@
     <None Include="FakeData\FakeError.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="FakeData\samplePost.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="FakeData\FakeData.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

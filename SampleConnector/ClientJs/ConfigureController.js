@@ -23,6 +23,7 @@
             FBVerifyTokenValue: (typeof $scope.FBVerifyTokenValue !== 'undefined') ? $scope.FBVerifyTokenValue : "",
             AADAppIdValue: (typeof $scope.AADAppIdValue !== 'undefined') ? $scope.AADAppIdValue : "",
             AADAppSecretValue: (typeof $scope.AADAppSecretValue !== 'undefined') ? $scope.AADAppSecretValue : "",
+            AADAppUriValue: (typeof $scope.AADAppUriValue !== 'undefined') ? $scope.AADAppUriValue : "",
             InstrumentationKeyValue: (typeof $scope.InstrumentationKeyValue !== 'undefined') ? $scope.InstrumentationKeyValue : ""
         };
         $http.post(configureUrl, settings).then((response) => {

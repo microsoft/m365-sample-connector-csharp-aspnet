@@ -11,7 +11,6 @@ namespace Sample.Connector
 
     /// <summary>
     /// Azure blob based Item uploader. The items will be uploaded following the naming convention specified by the protocol.
-    /// The items will be named as [jobId]/[taskId]/[timestamp].json to ensure alphabetical ordering when items are pushed in order into O365.
     /// </summary>
     public class BlobUploader : IUploader
     {

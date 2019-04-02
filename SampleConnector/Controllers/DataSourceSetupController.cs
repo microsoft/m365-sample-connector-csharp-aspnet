@@ -13,7 +13,7 @@ namespace Sample.Connector
     using Microsoft.WindowsAzure.Storage.Table;
 
     /// <summary>
-    /// API controller for all native connector setups
+    /// API controller for all connector setups
     /// </summary>
     [ApiAuthorizationModule]
     public class DataSourceSetupController : ApiController
@@ -34,16 +34,14 @@ namespace Sample.Connector
 
         public DataSourceSetupController()
         {
-            // Can be done using dependency injection using Unity
             connectorSourceFactory = new ConnectorSourceFactory();
-
             azureTableProvider = new AzureTableProvider(Settings.StorageAccountConnectionString);
         }
 
         /// <summary>
-        /// Returns the list of entities for native connector job type
+        /// Returns the list of entities for connector job type
         /// </summary>
-        /// <param name="jobType">Native Connector job type</param>
+        /// <param name="jobType">Connector job type</param>
         /// <param name="jobId">job Id for current job</param>
         /// <returns>List of jobs owned by the tenant.</returns>
         [HttpGet]
@@ -135,7 +133,7 @@ namespace Sample.Connector
             try
             {
                 Trace.TraceInformation("Job with JobId: {0} subscribing to webhook", jobId);
-                bool subscribed = await connectorSourceProvider.Subscribe(pageJobEntity.SourceInfo);
+                await connectorSourceProvider.Subscribe(pageJobEntity.SourceInfo);
                 Trace.TraceInformation("Job with JobId: {0} successfully subscribed to webhook", jobId);
             }
             catch (Exception e)

@@ -51,6 +51,8 @@ namespace Sample.Connector
 
         public static string AAdAppSecret = string.Empty;
 
+        public static string AADAppUri = string.Empty;
+
         public static string APPINSIGHTS_INSTRUMENTATIONKEY = string.Empty;
     }
 }

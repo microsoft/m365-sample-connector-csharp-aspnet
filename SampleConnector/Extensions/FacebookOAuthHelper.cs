@@ -10,8 +10,6 @@ namespace Sample.Connector
 {
     public class FacebookOAuthHelper
     {
-        private static readonly string JobType = "Facebook";
-
         /// <summary>
         /// Cookie key for nonce token
         /// </summary>

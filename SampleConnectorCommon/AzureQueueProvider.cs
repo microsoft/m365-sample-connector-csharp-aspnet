@@ -5,7 +5,6 @@ namespace Sample.Connector
 {
     using Microsoft.WindowsAzure.Storage;
     using Microsoft.WindowsAzure.Storage.Queue;
-    using Microsoft.WindowsAzure.Storage.Queue.Protocol;
     using System;
     using System.Threading.Tasks;
 
@@ -18,12 +17,7 @@ namespace Sample.Connector
         {
 
         }
-
-        public AzureStorageQueueProvider(string queueSasUri)
-        {
-            queue = new CloudQueue(new Uri(queueSasUri));
-        }
-
+        
         // private constructor using storageaccount
         private AzureStorageQueueProvider(CloudStorageAccount storageAccount, string queueName)
         {
@@ -48,23 +42,6 @@ namespace Sample.Connector
             return this.queue.AddMessageAsync(cloudMessage);
         }
 
-        public void InsertMessage(string message)
-        {
-            CloudQueueMessage cloudMessage = new CloudQueueMessage(message);
-            this.queue.AddMessage(cloudMessage);
-        }
-
-
-        /// <summary>
-        /// Returns the next item on the queue. Note that this will not delete the message from the
-        /// queue. The message will become invisible for 30 seconds (default time period).
-        /// </summary>
-        /// <returns>The queue message. Null if no message is available in the queue.</returns>
-        public CloudQueueMessage GetMessage()
-        {
-            return this.queue.GetMessage();
-        }
-
         /// <summary>
         /// Returns the next item on the queue. Note that this will not delete the message from the
         /// queue.
@@ -81,21 +58,5 @@ namespace Sample.Connector
         {
             this.queue.DeleteMessage(cloudMessage);
         }
-
-        public void SetQueuePermission(string policyIdentifier, DateTime accessExpiryTime, SharedAccessQueuePermissions accessPermission)
-        {
-            var perm = new QueuePermissions();
-            var policy = new SharedAccessQueuePolicy { SharedAccessExpiryTime = accessExpiryTime, Permissions = accessPermission };
-
-            perm.SharedAccessPolicies.Add(policyIdentifier, policy);
-
-            this.queue.SetPermissions(perm);
-        }
-
-        public string GetQueueSharedAccessSignature(SharedAccessQueuePolicy accessPolicy, string policyIdentifier)
-        {
-            return this.queue.GetSharedAccessSignature(accessPolicy, policyIdentifier);
-        }
-
     }
 }

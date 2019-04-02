@@ -28,7 +28,7 @@ namespace Sample.Connector
 
         private IEventApiClient eventApiClient;
 
-        private Dictionary<string,PageJobEntity> PageJobMapping = new Dictionary<string, PageJobEntity>();
+        private Dictionary<string, PageJobEntity> PageJobMapping = new Dictionary<string, PageJobEntity>();
 
         private readonly AzureTableProvider azureTableProvider;
 
@@ -41,8 +41,6 @@ namespace Sample.Connector
         {
             verifyToken = Settings.FacebookVerifyToken;
             appSecret = Settings.FacebookAppSecret;
-
-            // Can be done using Dependency Injection
             eventApiClient = new EventApiClient(new Auth(Settings.AAdAppId, Settings.AAdAppSecret), Settings.EventAPIBaseUrl);
             connectorSourceFactory = new ConnectorSourceFactory();
             azureTableProvider = new AzureTableProvider(Settings.StorageAccountConnectionString);

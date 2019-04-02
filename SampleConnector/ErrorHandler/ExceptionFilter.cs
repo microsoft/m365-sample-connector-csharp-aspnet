@@ -3,7 +3,6 @@
 
 namespace Sample.Connector
 {
-    using System;
     using System.Diagnostics;
     using System.Net;
     using System.Net.Http;
@@ -21,24 +20,11 @@ namespace Sample.Connector
         /// <param name="filterContext">Represents the action of the HTTP executed context</param>
         public override void OnException(HttpActionExecutedContext filterContext)
         {
+            // Unhandled errors
+            filterContext.Response = createErrorResponse(HttpStatusCode.InternalServerError, "Internal server error", filterContext);
 
-            if (filterContext.Exception is ArgumentOutOfRangeException)
-            {
-                    filterContext.Response = createErrorResponse(HttpStatusCode.BadRequest,
-                        "Failed to find job in the table", filterContext);
-
-                Trace.TraceError($"Exception thrown {filterContext.Exception.GetBaseException().Message}");
-                Trace.TraceError($"Exception Stack trace {filterContext.Exception.InnerException?.StackTrace}");
-            }
-            else
-            {
-                // Unhandled errors
-                filterContext.Response = createErrorResponse(HttpStatusCode.InternalServerError, "Internal server error", filterContext);
-
-                Trace.TraceError($"Exception thrown {filterContext.Exception.GetBaseException().Message}");
-                Trace.TraceError($"Exception Stack trace {filterContext.Exception.StackTrace}");
-            }
-
+            Trace.TraceError($"Exception thrown {filterContext.Exception.GetBaseException().Message}");
+            Trace.TraceError($"Exception Stack trace {filterContext.Exception.StackTrace}");
             base.OnException(filterContext);
         }
 

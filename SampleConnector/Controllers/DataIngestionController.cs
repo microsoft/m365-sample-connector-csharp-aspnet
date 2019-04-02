@@ -40,16 +40,21 @@ namespace Sample.Connector
 
             if (string.IsNullOrEmpty(Settings.AAdAppId) || string.IsNullOrEmpty(Settings.AAdAppSecret))
             {
-                HttpResponseMessage response =  new HttpResponseMessage(HttpStatusCode.ExpectationFailed);
-                response.Content = new StringContent("Connector is not configured. AAD Settings missing.");
                 Trace.TraceError($"AAD Settings missing. Request failed for JobId: {request.JobId} and TaskId: {request.TaskId}.");
-                return response;
+                return new HttpResponseMessage(HttpStatusCode.ExpectationFailed)
+                {
+                    Content = new StringContent("Connector is not configured. AAD Settings missing.")
+                };
             }
 
             PageJobEntity entity = await GetJobIdFromTable(request.JobId);
             if (entity == null)
             {
-                return new HttpResponseMessage(HttpStatusCode.NotFound);
+                Trace.TraceError($"Failed to find job in the table. Request failed for JobId: {request.JobId} and TaskId: {request.TaskId}.");
+                return new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent("Failed to find job in the table")
+                };
             }
             else
             {
@@ -72,6 +77,10 @@ namespace Sample.Connector
             Expression<Func<PageJobEntity, bool>> filter = (entity => entity.RowKey == jobId);
             pageJobMappingTable = azureTableProvider.GetAzureTableReference(Settings.PageJobMappingTableName);
             List<PageJobEntity> pageJobEntityList = await azureTableProvider.QueryEntitiesAsync<PageJobEntity>(pageJobMappingTable, filter);
+            if (pageJobEntityList == null || pageJobEntityList.Count == 0)
+            {
+                return null;
+            }
             return pageJobEntityList?[0];
         }
     }

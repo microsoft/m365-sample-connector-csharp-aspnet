@@ -9,6 +9,7 @@ namespace Sample.Connector
     using System.Threading.Tasks;
     using System.Web.Http;
 
+    [ApiAuthorizationModule]
     public class ConfigurationController : ApiController
     {
         private readonly AzureTableProvider azureTableProvider;
@@ -44,6 +45,9 @@ namespace Sample.Connector
             Settings.AAdAppSecret = configSettings["AADAppSecretValue"];
             await azureTableProvider.InsertOrReplaceEntityAsync(SettingsTable, new ConfigurationSettingsEntity("AAdAppSecret", configSettings["AADAppSecretValue"]));
 
+            Settings.AADAppUri = configSettings["AADAppUriValue"];
+            await azureTableProvider.InsertOrReplaceEntityAsync(SettingsTable, new ConfigurationSettingsEntity("AADAppUri", configSettings["AADAppUriValue"]));
+            
             Settings.APPINSIGHTS_INSTRUMENTATIONKEY = configSettings["InstrumentationKeyValue"];
             await azureTableProvider.InsertOrReplaceEntityAsync(SettingsTable, new ConfigurationSettingsEntity("APPINSIGHTS_INSTRUMENTATIONKEY", configSettings["InstrumentationKeyValue"]));
             TelemetryConfiguration.Active.InstrumentationKey = configSettings["InstrumentationKeyValue"];

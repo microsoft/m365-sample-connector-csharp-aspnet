@@ -25,7 +25,6 @@ namespace Sample.Connector
             GlobalConfiguration.Configuration.Formatters.Clear();
             GlobalConfiguration.Configuration.Formatters.Add(new JsonMediaTypeFormatter());
 
-            config.Filters.Add(new MonitoringActionFilterAttribute());
             config.Filters.Add(new ExceptionFilter());
 
             InitializeStorageEntities().Wait();
@@ -47,6 +46,7 @@ namespace Sample.Connector
             Settings.FacebookVerifyToken = (await azureTableProvider.GetEntityAsync<ConfigurationSettingsEntity>(settingsTable, "ConfigurationSetting", "FacebookVerifyToken"))?.settingValue;
             Settings.AAdAppId = (await azureTableProvider.GetEntityAsync<ConfigurationSettingsEntity>(settingsTable, "ConfigurationSetting", "AAdAppId"))?.settingValue;
             Settings.AAdAppSecret = (await azureTableProvider.GetEntityAsync<ConfigurationSettingsEntity>(settingsTable, "ConfigurationSetting", "AAdAppSecret"))?.settingValue;
+            Settings.AADAppUri = (await azureTableProvider.GetEntityAsync<ConfigurationSettingsEntity>(settingsTable, "ConfigurationSetting", "AADAppUri"))?.settingValue;
             Settings.APPINSIGHTS_INSTRUMENTATIONKEY = (await azureTableProvider.GetEntityAsync<ConfigurationSettingsEntity>(settingsTable, "ConfigurationSetting", "APPINSIGHTS_INSTRUMENTATIONKEY"))?.settingValue;
             if (Settings.APPINSIGHTS_INSTRUMENTATIONKEY == null)
             {

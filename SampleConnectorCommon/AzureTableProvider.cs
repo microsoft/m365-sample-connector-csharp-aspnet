@@ -55,32 +55,11 @@ namespace Sample.Connector
             await table.ExecuteAsync(TableOperation.InsertOrReplace(entity));
         }
 
-        // Insert or merge entity
-        public async Task InsertOrMergeEntityAsync<T>(CloudTable table, T entity)
-            where T : TableEntity
-        {
-            await table.ExecuteAsync(TableOperation.InsertOrMerge(entity));
-        }
-
         // Insert entity
         public async Task InsertEntityAsync<T>(CloudTable table, T entity)
             where T : TableEntity
         {
             await table.ExecuteAsync(TableOperation.Insert(entity));
-        }
-
-        //Replace entity
-        public async Task ReplaceEntityAsync<T>(CloudTable table, T entity)
-            where T : TableEntity
-        {
-            await table.ExecuteAsync(TableOperation.Replace(entity));
-        }
-
-        //Merge entity
-        public async Task MergeEntityAsync<T>(CloudTable table, T entity)
-            where T : TableEntity
-        {
-            await table.ExecuteAsync(TableOperation.Merge(entity));
         }
 
         //Delete entity
@@ -100,15 +79,6 @@ namespace Sample.Connector
 
             return await this.TableQueryExecuteAsync(table, tableQuery);
         }
-
-        public async Task<List<T>> QueryEntitiesAsync<T>(CloudTable table, string filter)
-            where T : TableEntity, new()
-        {
-            TableQuery<T> tableQuery = new TableQuery<T>().Where(filter);
-
-            return await this.TableQueryExecuteAsync(table, tableQuery);
-        }
-
 
         private async Task<List<T>> TableQueryExecuteAsync<T>(CloudTable table,
            TableQuery<T> query) where T : TableEntity , new()
