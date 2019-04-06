@@ -1,4 +1,4 @@
-# Disclaimer
+# Get Started
 
 Follow the steps in [Deployment Doc](https://github.com/Microsoft/m365-sample-connector-csharp-aspnet/blob/master/Deployment%20Steps.docx) to get started.
 
