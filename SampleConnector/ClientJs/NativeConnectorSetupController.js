@@ -25,7 +25,7 @@
     
     
     $scope.login = () => {
-        if ($scope.sharedSecretKey != null) {
+        if ($scope.sharedSecretKey) {
             $cookies.put("sharedSecret", $scope.sharedSecretKey);
             $cookies.put("jobId", jobId);
             $cookies.put("tenantId", tenantId);
