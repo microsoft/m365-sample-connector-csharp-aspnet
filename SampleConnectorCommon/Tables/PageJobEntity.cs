@@ -22,5 +22,7 @@ namespace Sample.Connector
         public string SourceInfo { get; set; }
 
         public string TenantId { get; set; }
+
+        public ConnectorJobType JobType { get; set; }
     }
 }

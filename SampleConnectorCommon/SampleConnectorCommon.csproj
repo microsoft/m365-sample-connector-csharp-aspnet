@@ -88,6 +88,10 @@
       <Project>{91094C9E-530B-4DC7-BBC0-C65BF8EE638A}</Project>
       <Name>FacebookSDK</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ConnectorSDK\ConnectorSDK.csproj">
+      <Project>{F52B960C-2213-4620-8119-76FEF38EBAEB}</Project>
+      <Name>ConnectorSDK</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AzureQueueProvider.cs" />
@@ -105,6 +109,11 @@
     <Compile Include="Tables\PageJobEntity.cs" />
     <Compile Include="Tables\ConfigurationSettingsEntity.cs" />
     <Compile Include="Tables\TokenTableEntity.cs" />
+    <Compile Include="Workload\ClientException.cs" />
+    <Compile Include="Workload\Downloader.cs" />
+    <Compile Include="Workload\Facebook\JobProcessorFB.cs" />
+    <Compile Include="Workload\IDownloader.cs" />
+    <Compile Include="Workload\JobProcessorBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

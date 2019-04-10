@@ -4,12 +4,14 @@
 namespace Sample.Connector.Test
 {
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Moq;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
     using Sample.Connector.FacebookSDK;
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Net.Http.Headers;
     using System.Threading.Tasks;
 
     [TestClass]
@@ -52,11 +54,17 @@ namespace Sample.Connector.Test
             taskInfo.JobId = "job1";
             taskInfo.TaskId = "task1";
             taskInfo.TenantId = "tenant1";
-
-            FakeDownloader downloader = new FakeDownloader(TestCases.DummyPosts);
+            
+            var mockDownloader = new Mock<IDownloader>();
+            mockDownloader.SetupSequence(x => x.GetWebContent<PostListFB, ErrorsFB>(It.IsAny<string>(), It.IsAny<AuthenticationHeaderValue>()))
+                .ReturnsAsync(JsonConvert.DeserializeObject<PostListFB>(File.ReadAllText(@"FakeData\FakeData.json")))
+                .ReturnsAsync(JsonConvert.DeserializeObject<PostListFB>("{\"data\": []}"));
+            
+            mockDownloader.Setup(x => x.DownloadFileAsBase64EncodedString(It.IsAny<string>()))
+                .ReturnsAsync(Convert.ToBase64String(File.ReadAllBytes(@"FakeData\FakeImage.jpg")));
 
             FakeUploader uploader = new FakeUploader();
-            JobProcessorFB job = new JobProcessorFB(downloader, uploader);
+            JobProcessorFB job = new JobProcessorFB(mockDownloader.Object, uploader);
 
             string sourceInfo = "{\"PageId\":\"123\",\"AccessToken\":\"Fake\",\"PageName\":\"Fake123\"}";
 
@@ -87,10 +95,12 @@ namespace Sample.Connector.Test
             taskInfo.TaskId = "task1";
             taskInfo.TenantId = "tenant1";
 
-            FakeDownloader downloader = new FakeDownloader(TestCases.DummyError);
+            var mockDownloader = new Mock<IDownloader>();
+            mockDownloader.Setup(x => x.GetWebContent<PostListFB, ErrorsFB>(It.IsAny<string>(), It.IsAny<AuthenticationHeaderValue>()))
+                .Throws(new ClientException<ErrorsFB>(JsonConvert.DeserializeObject<ErrorsFB>(File.ReadAllText(@"FakeData\FakeError.json"))));
 
             FakeUploader uploader = new FakeUploader();
-            JobProcessorFB job = new JobProcessorFB(downloader, uploader);
+            JobProcessorFB job = new JobProcessorFB(mockDownloader.Object, uploader);
 
             string sourceInfo = "{\"PageId\":\"123\",\"AccessToken\":\"Fake\",\"PageName\":\"Fake123\"}";
 
@@ -117,15 +127,48 @@ namespace Sample.Connector.Test
             taskInfo.TaskId = "task1";
             taskInfo.TenantId = "tenant1";
 
-            FakeDownloader downloader = new FakeDownloader(TestCases.NoPostsFetched);
+            var mockDownloader = new Mock<IDownloader>();
+            mockDownloader.Setup(x => x.GetWebContent<PostListFB, ErrorsFB>(It.IsAny<string>(), It.IsAny<AuthenticationHeaderValue>()))
+                .ReturnsAsync(JsonConvert.DeserializeObject<PostListFB>("{\"data\": []}"));
 
             FakeUploader uploader = new FakeUploader();
-            JobProcessorFB job = new JobProcessorFB(downloader, uploader);
+            JobProcessorFB job = new JobProcessorFB(mockDownloader.Object, uploader);
 
             string sourceInfo = "{\"PageId\":\"123\",\"AccessToken\":\"Fake\",\"PageName\":\"Fake123\"}";
 
             await job.FetchData(taskInfo, sourceInfo);
             Assert.AreEqual(uploader.fakeStorage.Count, 0);
+        }
+
+        [TestMethod]
+        public async Task FetchUpdatedPostsUnitTest()
+        {
+            ConnectorTask taskInfo = new ConnectorTask();
+            taskInfo.StartTime = DateTime.Parse("2018-01-09");
+            taskInfo.EndTime = DateTime.Parse("2018-01-11");
+            taskInfo.JobId = "job1";
+            taskInfo.TaskId = "task1";
+            taskInfo.TenantId = "tenant1";
+            taskInfo.DirtyEntities = new List<string>()
+            {
+                "a",
+                "b"
+            };
+
+            var mockDownloader = new Mock<IDownloader>();
+            mockDownloader.SetupSequence(x => x.GetWebContent<PostListFB, ErrorsFB>(It.IsAny<string>(), It.IsAny<AuthenticationHeaderValue>()))
+                .ReturnsAsync(JsonConvert.DeserializeObject<PostListFB>("{\"data\": []}"));
+
+            mockDownloader.SetupSequence(x => x.GetWebContent<Dictionary<string, PostFB>, ErrorsFB>(It.IsAny<string>(), It.IsAny<AuthenticationHeaderValue>()))
+                .ReturnsAsync(JsonConvert.DeserializeObject<Dictionary<string, PostFB>>(File.ReadAllText(@"FakeData\FakeDirtyPosts.json")));
+
+            FakeUploader uploader = new FakeUploader();
+            JobProcessorFB job = new JobProcessorFB(mockDownloader.Object, uploader);
+
+            string sourceInfo = "{\"PageId\":\"123\",\"AccessToken\":\"Fake\",\"PageName\":\"Fake123\"}";
+
+            await job.FetchData(taskInfo, sourceInfo);
+            Assert.AreEqual(uploader.fakeStorage.Count, 2);
         }
 
         private void AssertItemsAreEqual(Object e, Object a)

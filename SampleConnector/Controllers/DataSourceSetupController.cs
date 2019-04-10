@@ -126,6 +126,7 @@ namespace Sample.Connector
             PageJobEntity pageJobEntity = new PageJobEntity(page.Id, jobId);
             pageJobEntity.SourceInfo = sourceInfo;
             pageJobEntity.TenantId = tenantId;
+            pageJobEntity.JobType = connectorjobType;
 
             await azureTableProvider.InsertEntityAsync(PageJobMappingTable, pageJobEntity);
             Trace.TraceInformation("Job Setup complete page succesfully saved for jobId: {0}", jobId);

@@ -93,7 +93,7 @@ namespace Sample.Connector.Test
             };
 
             var restApiRepositoryMock = new Mock<IRestApiRepository>();
-            restApiRepositoryMock.SetupSequence(x => x.GetRequestAsync<PageListFB>(It.IsAny<string>(),
+            restApiRepositoryMock.Setup(x => x.GetRequestAsync<PageListFB>(It.IsAny<string>(),
                     It.IsAny<Dictionary<string, string>>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(emptyResponse);
             var facebookProvider = new FacebookProvider
@@ -114,7 +114,7 @@ namespace Sample.Connector.Test
             };
 
             var restApiRepositoryMock = new Mock<IRestApiRepository>();
-            restApiRepositoryMock.SetupSequence(x => x.GetRequestAsync<Dictionary<string, string>>(It.IsAny<string>(),
+            restApiRepositoryMock.Setup(x => x.GetRequestAsync<Dictionary<string, string>>(It.IsAny<string>(),
                     It.IsAny<Dictionary<string, string>>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(response);
             var facebookProvider = new FacebookProvider
@@ -134,7 +134,7 @@ namespace Sample.Connector.Test
             };
 
             var restApiRepositoryMock = new Mock<IRestApiRepository>();
-            restApiRepositoryMock.SetupSequence(x => x.GetRequestAsync<Dictionary<string, string>>(It.IsAny<string>(),
+            restApiRepositoryMock.Setup(x => x.GetRequestAsync<Dictionary<string, string>>(It.IsAny<string>(),
                     It.IsAny<Dictionary<string, string>>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(response);
             var facebookProvider = new FacebookProvider
@@ -156,7 +156,7 @@ namespace Sample.Connector.Test
             };
 
             var restApiRepositoryMock = new Mock<IRestApiRepository>();
-            restApiRepositoryMock.SetupSequence(x => x.GetRequestAsync<PageFB>(It.IsAny<string>(),
+            restApiRepositoryMock.Setup(x => x.GetRequestAsync<PageFB>(It.IsAny<string>(),
                     It.IsAny<Dictionary<string, string>>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(response);
             var facebookProvider = new FacebookProvider
@@ -178,7 +178,7 @@ namespace Sample.Connector.Test
                 Success = true,
             };
             var restApiRepositoryMock = new Mock<IRestApiRepository>();
-            restApiRepositoryMock.SetupSequence(x => x.PostRequestAsync<Dictionary<string, string>, SubscribeWebhookResponseFB>(It.IsAny<string>(),
+            restApiRepositoryMock.Setup(x => x.PostRequestAsync<Dictionary<string, string>, SubscribeWebhookResponseFB>(It.IsAny<string>(),
                     It.IsAny<Dictionary<string, string>>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(response);
             var facebookProvider = new FacebookProvider
@@ -199,7 +199,7 @@ namespace Sample.Connector.Test
                 Success = false,
             };
             var restApiRepositoryMock = new Mock<IRestApiRepository>();
-            restApiRepositoryMock.SetupSequence(x => x.PostRequestAsync<Dictionary<string, string>, SubscribeWebhookResponseFB>(It.IsAny<string>(),
+            restApiRepositoryMock.Setup(x => x.PostRequestAsync<Dictionary<string, string>, SubscribeWebhookResponseFB>(It.IsAny<string>(),
                     It.IsAny<Dictionary<string, string>>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(response);
             var facebookProvider = new FacebookProvider
@@ -218,7 +218,7 @@ namespace Sample.Connector.Test
                 Success = true,
             };
             var restApiRepositoryMock = new Mock<IRestApiRepository>();
-            restApiRepositoryMock.SetupSequence(x => x.DeleteRequestAsync<SubscribeWebhookResponseFB>(It.IsAny<string>(),
+            restApiRepositoryMock.Setup(x => x.DeleteRequestAsync<SubscribeWebhookResponseFB>(It.IsAny<string>(),
                     It.IsAny<Dictionary<string, string>>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(response);
             var facebookProvider = new FacebookProvider
@@ -238,7 +238,7 @@ namespace Sample.Connector.Test
                 Success = false,
             };
             var restApiRepositoryMock = new Mock<IRestApiRepository>();
-            restApiRepositoryMock.SetupSequence(x => x.DeleteRequestAsync<SubscribeWebhookResponseFB>(It.IsAny<string>(),
+            restApiRepositoryMock.Setup(x => x.DeleteRequestAsync<SubscribeWebhookResponseFB>(It.IsAny<string>(),
                     It.IsAny<Dictionary<string, string>>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(response);
             var facebookProvider = new FacebookProvider

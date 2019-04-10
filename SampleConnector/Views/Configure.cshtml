@@ -7,15 +7,22 @@
     <link rel="stylesheet" href="~/Content/style.css" />
 </head>
 <body ng-app="MainApp" ng-controller="ConfigureCtrl">
-    <div class="row justify-content-center" ng-show="!isLoginComplete">
-        <div class="">
-            <div class="form-group">
-                <input type="text" ng-model="tenantId" class="form-control" placeholder="Tenant Id" />
+    <div align="center">
+        <h1>Connector for M365 Import</h1>
+    </div>
+    <div class="container" ng-show="!isLoginComplete">
+        <div class="mainContent">
+            <div class="row justify-content-center">
+                <div class="">
+                    <div class="form-group">
+                        <input type="text" ng-model="tenantId" class="form-control" placeholder="Tenant Id" />
+                    </div>
+                    <div class="form-group">
+                        <input type="password" ng-model="sharedSecretKey" class="form-control" placeholder="password" />
+                    </div>
+                    <button class="btn btn-primary" ng-click="login()">Set Configuration Settings</button>
+                </div>
             </div>
-            <div class="form-group">
-                <input type="password" ng-model="sharedSecretKey" class="form-control" placeholder="Shared Secret" />
-            </div>
-            <button class="btn btn-primary" ng-click="login()">Set Configuration Settings</button>
         </div>
     </div>
 
@@ -24,7 +31,7 @@
         <table id="table1" cellspacing="5" cellpadding="5">
             <tr>
                 <td align="left">Facebook Application ID:</td>
-                <td><input type="text" ng-model="FBAppIdValue" size="40"/></td>
+                <td><input type="text" ng-model="FBAppIdValue" size="40" /></td>
             </tr>
             <tr>
                 <td align="left">Facebook Application Secret:</td>

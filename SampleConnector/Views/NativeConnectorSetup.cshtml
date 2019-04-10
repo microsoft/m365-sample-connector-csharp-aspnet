@@ -7,12 +7,15 @@
 	<link rel="stylesheet" href="~/Content/style.css" />
 </head>
 <body ng-app="MainApp">
+    <div align="center">
+        <h1>Connector for M365 Import</h1>
+    </div>
 	<div class="container" ng-controller="NativeConnectorSetupCtrl">
 		<div class="mainContent">
 			<div class="row justify-content-center" ng-show="!isLoginComplete">
 				<div class="">
 					<div class="form-group">
-						<input type="password" ng-model="sharedSecretKey" class="form-control" placeholder="Shared Secret" />
+						<input type="password" ng-model="sharedSecretKey" class="form-control" placeholder="password" />
 					</div>
 					<button class="btn btn-primary" ng-click="login()">Login to Connector Service</button>
 				</div>
