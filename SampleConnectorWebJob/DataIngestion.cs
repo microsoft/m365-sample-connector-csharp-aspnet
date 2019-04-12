@@ -11,7 +11,6 @@ namespace Sample.Connector
     using System.Linq.Expressions;
     using System.Collections.Generic;
     using System.Diagnostics;
-    using Microsoft.ApplicationInsights.Extensibility;
 
     public class DataIngestion
     {
@@ -78,11 +77,6 @@ namespace Sample.Connector
             CloudTable settingsTable = azureTableProvider.GetAzureTableReference(Settings.ConfigurationSettingsTableName);
             Settings.AAdAppId = (await azureTableProvider.GetEntityAsync<ConfigurationSettingsEntity>(settingsTable, "ConfigurationSetting", "AAdAppId")).settingValue;
             Settings.AAdAppSecret = (await azureTableProvider.GetEntityAsync<ConfigurationSettingsEntity>(settingsTable, "ConfigurationSetting", "AAdAppSecret")).settingValue;
-            Settings.APPINSIGHTS_INSTRUMENTATIONKEY = (await azureTableProvider.GetEntityAsync<ConfigurationSettingsEntity>(settingsTable, "ConfigurationSetting", "APPINSIGHTS_INSTRUMENTATIONKEY"))?.settingValue;
-            if (Settings.APPINSIGHTS_INSTRUMENTATIONKEY != null)
-            {
-                TelemetryConfiguration.Active.InstrumentationKey = Settings.APPINSIGHTS_INSTRUMENTATIONKEY;
-            }
         }
     }
 }

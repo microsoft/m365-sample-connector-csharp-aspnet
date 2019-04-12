@@ -74,10 +74,12 @@ namespace Sample.Connector
         /// <param name="tenantId">tenant Id</param>
         /// <returns>success or failure</returns>
         [HttpDelete]
-        [Route("api/ConnectorSetup/DeletePage")]
-        public async Task<HttpStatusCode> DeletePage([FromUri] string jobId, [FromUri] string tenantId)
+        [Route("api/ConnectorSetup/DeleteJob")]
+        public async Task<HttpStatusCode> DeleteJob([FromUri] string jobId)
         {
             CloudTable jobMappingTable = azureTableProvider.GetAzureTableReference(Settings.PageJobMappingTableName);
+
+            string tenantId = Settings.TenantId;
 
             Expression<Func<PageJobEntity, bool>> filter = (entity => entity.RowKey == jobId && entity.TenantId == tenantId);
             List<PageJobEntity> pageJobEntityList = await azureTableProvider.QueryEntitiesAsync<PageJobEntity>(jobMappingTable, filter);
