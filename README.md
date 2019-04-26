@@ -1,6 +1,6 @@
 # Get Started
 
-Follow the steps in [Deployment Doc](https://github.com/Microsoft/m365-sample-connector-csharp-aspnet/blob/master/Deployment%20Steps.docx) to get started.
+Follow the steps in [Deployment Doc](https://docs.microsoft.com/en-us/office365/securitycompliance/archive-third-party-data-with-sample-connector) to get started.
 
 
 # Disclaimer
