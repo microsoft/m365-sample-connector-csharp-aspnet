@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2006
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FacebookSDK", "FacebookSDK\FacebookSDK.csproj", "{91094C9E-530B-4DC7-BBC0-C65BF8EE638A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConnectorSDK", "..\Common\ConnectorSDK\ConnectorSDK.csproj", "{F52B960C-2213-4620-8119-76FEF38EBAEB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConnectorTest", "ConnectorTest\ConnectorTest.csproj", "{D4182724-989F-4E20-BFEE-A96282CE3252}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConnectorCommon", "..\Common\ConnectorCommon\ConnectorCommon.csproj", "{3AEC1B8A-415F-42C2-91C1-337490780276}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebJob", "WebJob\WebJob.csproj", "{706416EF-AE0F-4954-BDA0-58CA8F0DA77B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp", "WebApp\WebApp.csproj", "{D986EE01-3E67-4D55-9229-873F38CA36BE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{91094C9E-530B-4DC7-BBC0-C65BF8EE638A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91094C9E-530B-4DC7-BBC0-C65BF8EE638A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91094C9E-530B-4DC7-BBC0-C65BF8EE638A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91094C9E-530B-4DC7-BBC0-C65BF8EE638A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F52B960C-2213-4620-8119-76FEF38EBAEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F52B960C-2213-4620-8119-76FEF38EBAEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F52B960C-2213-4620-8119-76FEF38EBAEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F52B960C-2213-4620-8119-76FEF38EBAEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4182724-989F-4E20-BFEE-A96282CE3252}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4182724-989F-4E20-BFEE-A96282CE3252}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4182724-989F-4E20-BFEE-A96282CE3252}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4182724-989F-4E20-BFEE-A96282CE3252}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3AEC1B8A-415F-42C2-91C1-337490780276}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AEC1B8A-415F-42C2-91C1-337490780276}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AEC1B8A-415F-42C2-91C1-337490780276}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AEC1B8A-415F-42C2-91C1-337490780276}.Release|Any CPU.Build.0 = Release|Any CPU
+		{706416EF-AE0F-4954-BDA0-58CA8F0DA77B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{706416EF-AE0F-4954-BDA0-58CA8F0DA77B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{706416EF-AE0F-4954-BDA0-58CA8F0DA77B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{706416EF-AE0F-4954-BDA0-58CA8F0DA77B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D986EE01-3E67-4D55-9229-873F38CA36BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D986EE01-3E67-4D55-9229-873F38CA36BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D986EE01-3E67-4D55-9229-873F38CA36BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D986EE01-3E67-4D55-9229-873F38CA36BE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E61E7515-8557-4596-A705-A48EC63DF686}
+	EndGlobalSection
+EndGlobal
