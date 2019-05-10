@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{91094C9E-530B-4DC7-BBC0-C65BF8EE638A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FacebookSDK</RootNamespace>
+    <AssemblyName>FacebookSDK</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Azure.KeyVault.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\Packages\Microsoft.Azure.KeyVault.Core.1.0.0\lib\net40\Microsoft.Azure.KeyVault.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Storage, Version=9.3.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\Packages\WindowsAzure.Storage.9.3.2\lib\net45\Microsoft.WindowsAzure.Storage.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\Packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AttachmentDataFB.cs" />
+    <Compile Include="AttachmentFB.cs" />
+    <Compile Include="CommentDataFB.cs" />
+    <Compile Include="CommentFB.cs" />
+    <Compile Include="CursorsFB.cs" />
+    <Compile Include="ErrorsFB.cs" />
+    <Compile Include="ErrorTypeFB.cs" />
+    <Compile Include="FacebookProvider.cs" />
+    <Compile Include="ImageFB.cs" />
+    <Compile Include="JobProcessorFB.cs" />
+    <Compile Include="MediaFB.cs" />
+    <Compile Include="MessageTagsFB.cs" />
+    <Compile Include="NotificationDataFB.cs" />
+    <Compile Include="NotificationFB.cs" />
+    <Compile Include="NotificationObjectFB.cs" />
+    <Compile Include="NotificationSummaryFB.cs" />
+    <Compile Include="ObjectQueryFB.cs" />
+    <Compile Include="ObjectSummaryFB.cs" />
+    <Compile Include="PageFB.cs" />
+    <Compile Include="PageListFB.cs" />
+    <Compile Include="SettingsFB.cs" />
+    <Compile Include="UserLocationFB.cs" />
+    <Compile Include="PagingFB.cs" />
+    <Compile Include="PermissionFB.cs" />
+    <Compile Include="PostFB.cs" />
+    <Compile Include="PostListFB.cs" />
+    <Compile Include="ProfilePictureDataFB.cs" />
+    <Compile Include="ProfilePictureFB.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SourceInfoFB.cs" />
+    <Compile Include="SubscribeWebhookResponseFB.cs" />
+    <Compile Include="TaggedUserFB.cs" />
+    <Compile Include="TargetFB.cs" />
+    <Compile Include="UserFB.cs" />
+    <Compile Include="WebhookFeedFB.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\ConnectorSDK\ConnectorSDK.csproj">
+      <Project>{f52b960c-2213-4620-8119-76fef38ebaeb}</Project>
+      <Name>ConnectorSDK</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\ConnectorCommon\ConnectorCommon.csproj">
+      <Project>{3aec1b8a-415f-42c2-91c1-337490780276}</Project>
+      <Name>SampleConnectorCommon</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
