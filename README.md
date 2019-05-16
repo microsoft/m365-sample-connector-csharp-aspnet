@@ -1,5 +1,3 @@
-[![Build Status](https://dev.azure.com/ms/m365-sample-connector-csharp-aspnet/_apis/build/status/microsoft.m365-sample-connector-csharp-aspnet?branchName=master)](https://dev.azure.com/ms/m365-sample-connector-csharp-aspnet/_build/latest?definitionId=137&branchName=master)
-
 # Get Started
 
 Follow the steps in [Deployment Doc](https://docs.microsoft.com/en-us/office365/securitycompliance/archive-third-party-data-with-sample-connector) to get started.
