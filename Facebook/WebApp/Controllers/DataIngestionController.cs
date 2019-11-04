@@ -33,8 +33,7 @@ namespace Sample.Connector
         /// <param name="request">Callback request body from M365 Connector platform</param>
         /// <returns></returns>
         [HttpPost]
-        [Route("preview/OnDataRequest")]
-        [Route("api/DataIngestion/ScheduleTask")]
+        [Route("data/OnDownloadRequest")]
         public async Task<HttpResponseMessage> ScheduleTask([FromBody] ScheduleTaskRequest request)
         {
             Trace.TraceInformation($"Request came to Web for JobId: {request.JobId} and TaskId: {request.TaskId}");

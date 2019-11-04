@@ -2,14 +2,14 @@
     $scope.isLoginComplete = false;
     $scope.isDisabledSaveButton = false;
 
-    var checkSharedSecret = "api/ConnectorSetup/ValidateSetup";
+    var checkSharedSecret = "setup/Validate";
     var configurationUrl = "api/Configuration";
     $scope.login = () => {
         if ($scope.sharedSecretKey != null) {
             $cookies.put("sharedSecret", $scope.sharedSecretKey);
             $cookies.put("tenantId", $scope.tenantId);
             $http.get(checkSharedSecret).then((response) => {
-                $scope.isLoginComplete = response;
+                $scope.isLoginComplete = response.data.Status;
             });
 
             $http.get(configurationUrl).then((response) => {

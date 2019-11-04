@@ -269,6 +269,7 @@
     <Compile Include="Auth\ApiAuthorizationModule.cs" />
     <Compile Include="Auth\AuthenticateRequest.cs" />
     <Compile Include="Controllers\ConfigurationController.cs" />
+    <Compile Include="Controllers\ConnectorJobController.cs" />
     <Compile Include="Controllers\DataSourceSetupController.cs" />
     <Compile Include="Controllers\ConnectorSetupController.cs" />
     <Compile Include="Controllers\FbPageWebhookController.cs" />
