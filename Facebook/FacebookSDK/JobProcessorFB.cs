@@ -18,7 +18,7 @@ namespace Sample.Connector.FacebookSDK
         /// For making Http requests
         /// </summary>
         private IDownloader downloader;
-        
+
         private readonly IUploader uploader;
 
         /// <summary>
@@ -114,16 +114,17 @@ namespace Sample.Connector.FacebookSDK
                     List<CommentDataFB> Data = comments.Data.ToList();
                     foreach (CommentDataFB comment in Data)
                     {
-                        await HandleComment(post, comment, header, pageId, postItem, taskInfo, itemMetadata);
+                        await HandleComment(comment, header, pageId, postItem, taskInfo, itemMetadata);
                     }
                 }
                 moreComments = true;
             } while (comments?.Paging?.Next != null);
         }
 
-        private async Task HandleComment(PostFB post, CommentDataFB comment, AuthenticationHeaderValue header, string pageId, Item postItem, ConnectorTask taskInfo, List<ItemMetadata> itemMetadata)
+        private async Task HandleComment(CommentDataFB comment, AuthenticationHeaderValue header, string pageId, Item postItem, ConnectorTask taskInfo, List<ItemMetadata> itemMetadata)
         {
             Item commentItem = await CreateCommentItem(comment, pageId, postItem, taskInfo, itemMetadata);
+            commentItem.PreContext = null;
 
             if (comment.CommentCount > 0)
             {
@@ -235,6 +236,7 @@ namespace Sample.Connector.FacebookSDK
                 NumOfLikes = comment.LikeCount,
                 MessagePreviewText = postItem.Content,
                 Recipients = Array.Empty<User>(),
+                PreContext = new List<Item>() { postItem },
             };
 
             if (comment.Attachment != null)
@@ -277,6 +279,7 @@ namespace Sample.Connector.FacebookSDK
                 NumOfLikes = reply.LikeCount,
                 MessagePreviewText = postItem.Content,
                 Recipients = Array.Empty<User>(),
+                PreContext = new List<Item>() { postItem, commentItem },
             };
 
             if (reply.Attachment != null)
