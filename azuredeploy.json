@@ -1,0 +1,108 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "webAppName": {
+      "type": "string",
+      "metadata": {
+        "description": "Provide a unique name for the connector web app. Name must be in 3 and 18 characters in length"
+      },
+	  "minLength": 2,
+	  "maxlength": 18
+    },
+	"tenantId": {
+      "type": "string",
+      "metadata": {
+        "description": "Your Office 365 tenant ID is a globally unique identifier (GUID) that is different than your organization name or domain."
+      }
+    },
+	"apiSecretKey": {
+      "type": "string",
+      "metadata": {
+        "description": "You can type any value as the secret. This is used to access the connector web app"
+      }
+    }
+  },
+  "variables": {
+    "hostingPlanName": "[concat('AppServicePlan-', parameters('webAppName'))]",
+    "storageAccountName": "[concat('store', uniqueString(trim(parameters('webAppName'))))]",
+	"storageAccountApiVersion": "2018-07-01",
+	"storageAccountType": "Standard_LRS",
+	"location": "[resourceGroup().location]",
+	"sku": "S1",
+	"workerSize": "1",
+	"repoURL": "https://github.com/microsoft/m365-sample-connector-csharp-aspnet.git",
+	"branch": "master"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Storage/storageAccounts",
+      "name": "[variables('storageAccountName')]",
+      "location": "[variables('location')]",
+      "apiVersion": "[variables('storageAccountApiVersion')]",
+      "sku": {
+        "name": "[variables('storageAccountType')]"
+      },
+      "kind": "StorageV2",
+      "properties": {}
+    },
+	{
+      "apiVersion": "2015-08-01",
+      "name": "[variables('hostingPlanName')]",
+      "type": "Microsoft.Web/serverfarms",
+      "location": "[variables('location')]",
+      "sku": {
+        "name": "[variables('sku')]",
+        "capacity": "[variables('workerSize')]"
+      },
+      "properties": {
+        "name": "[variables('hostingPlanName')]"
+      }
+    },
+    {
+      "apiVersion": "2015-08-01",
+      "name": "[parameters('webAppName')]",
+      "type": "Microsoft.Web/sites",
+      "location": "[variables('location')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/serverfarms', variables('hostingPlanName'))]",
+		"[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+      ],
+      "properties": {
+        "serverFarmId": "[variables('hostingPlanName')]",
+		"siteConfig": {
+                   "AlwaysOn": true,
+				   "appSettings": [
+						{
+							"name": "TenantId",
+							"value": "[parameters('tenantId')]"
+						},
+						{
+							"name": "APISecretKey",
+							"value": "[parameters('apiSecretKey')]"
+						},
+						{
+							"name": "StorageAccountConnectionString",
+							"value": "[Concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).keys[0].value,';EndpointSuffix=core.windows.net')]"
+						}
+					]
+               }
+		},
+		"resources": [
+        {
+          "apiVersion": "2015-08-01",
+          "name": "web",
+          "type": "sourcecontrols",
+          "dependsOn": [
+            "[resourceId('Microsoft.Web/Sites', parameters('webAppName'))]"
+          ],
+          "properties": {
+            "RepoUrl": "[variables('repoURL')]",
+            "branch": "[variables('branch')]",
+            "IsManualIntegration": true
+          }
+        }
+      ]
+    }
+  ]
+}
