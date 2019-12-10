@@ -29,7 +29,6 @@ namespace Sample.Connector
         {
             Log($"Calling event API for task completion, jobId:{jobId}, taskId:{taskId}, status:{status}");
             DownloadComplete e = new DownloadComplete {
-              jobId = jobId,
               taskId = taskId,
               status = status,
               itemMetadata = itemMetadata
@@ -45,7 +44,7 @@ namespace Sample.Connector
                         "Authorization", "Bearer " + token
                     }
                 },
-                RequestUri = new Uri(baseUrl + "api/data/ondownloadcomplete/"),
+                RequestUri = new Uri(baseUrl + "api/data/ondownloadcomplete/" + "?jobId=" + jobId),
                 Content = new StringContent(JsonConvert.SerializeObject(e), Encoding.UTF8, "application/json")
             };
             await httpClient.SendAsync(request);
@@ -59,7 +58,6 @@ namespace Sample.Connector
             NativeConnetorEvent e = new NativeConnetorEvent()
             {
                 Id = itemId,
-                JobId = jobId,
                 ChangeType = change,
                 TimeStamp = unixEpoch.AddSeconds(Double.Parse(timeStamp))
             };
@@ -77,7 +75,7 @@ namespace Sample.Connector
                         "Authorization", "Bearer " + token
                     }
                 },
-                RequestUri = new Uri(baseUrl + "api/data/onwebhookevent/"),
+                RequestUri = new Uri(baseUrl + "api/data/onwebhookevent/" + "?jobId=" + jobId),
                 Content = new StringContent(JsonConvert.SerializeObject(list), Encoding.UTF8, "application/json")
             };
             await httpClient.SendAsync(request);
