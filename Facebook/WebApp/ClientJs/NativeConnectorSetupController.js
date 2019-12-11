@@ -26,7 +26,7 @@
     var reloginCheckUrl = "api/ConnectorSetup/IsRelogin";
 
 
-    $scope.login = () => {
+    $scope.login = function () {
         if ($scope.sharedSecretKey) {
             $cookies.put("sharedSecret", $scope.sharedSecretKey);
             $cookies.put("jobId", jobId);
@@ -36,11 +36,11 @@
             deleteTokenUrl = deleteTokenUrl + "&jobId=" + jobId;
             reloginCheckUrl = reloginCheckUrl + "?jobId=" + jobId;
 
-            $http.get(reloginCheckUrl).then((response) => {
+            $http.get(reloginCheckUrl).then(function (response) {
                 $scope.isRelogin = response.data;
                 $scope.isLoginComplete = true;
-            }).then(() => {
-                $http.get(getOAuthUrl).then((response) => {
+            }).then(function () {
+                $http.get(getOAuthUrl).then(function (response) {
                     $scope.authenticationUrl = response.data;
                     $scope.isbusy = false;
                 });
@@ -49,13 +49,13 @@
         }
     }
 
-    $scope.openPopop = () => {
+    $scope.openPopop = function () {
         $scope.noPageinAccount = false;
         var encodedAuthUrl = encodeURIComponent($scope.authenticationUrl);
         var url = $scope.facebookBaseUrl + "?loginUrl=" + encodedAuthUrl;
         $scope.isbusy = true;
         openPopup(this, url, function authenticationCallback() {
-            $http.get(getEntitiesUrl).then((response) => {
+            $http.get(getEntitiesUrl).then(function (response) {
                 $scope.isbusy = false;
                 if (response.data) {
                     if ($scope.isRelogin) {
@@ -74,9 +74,9 @@
         });
     };
 
-    $scope.updateJob = () => {
+    $scope.updateJob = function () {
         var updateUrl = "api/ConnectorSetup/Update" + "?jobId=" + jobId;
-        $http.post(updateUrl).then((response) => {
+        $http.post(updateUrl).then(function (response) {
             var res = response.data;
             setTimeout(function () {
             }, 500);
@@ -89,10 +89,10 @@
             }
 
             $scope.isSetupComplete = true;
-        }).catch((error) => { });
+        }).catch(function (error) { });
     }
 
-    $scope.saveJob = () => {
+    $scope.saveJob = function () {
         $scope.noPageSelected = false;
         $scope.noPagesToArchive = false;
         var savePageurl = "api/ConnectorSetup/SavePage" + "?jobId=" + jobId;
@@ -116,7 +116,7 @@
                 Name: selectedPage.Name,
                 Id: selectedPage.Id
             };
-            $http.post(savePageurl, pageToBeSaved).then((response) => {
+            $http.post(savePageurl, pageToBeSaved).then(function (response) {
                 var res = response.data;
                 setTimeout(function () {
                 }, 500);
@@ -129,7 +129,7 @@
                 }
 
                 $scope.isSetupComplete = true;
-            }).catch((error) => { });
+            }).catch(function (error) { });
         }
         else {
             if ($scope.noPagesToArchive === true) {
@@ -142,8 +142,8 @@
         }
     }
 
-    $scope.finishSetup = () => {
-        $http.get(deleteTokenUrl).then((response) => {
+    $scope.finishSetup = function () {
+        $http.get(deleteTokenUrl).then(function (response) {
             $scope.isTokenDeleted = response.data;
         });
         window.close();
@@ -152,7 +152,7 @@
 
 function openPopup(context, path, callback) {
     var windowName = 'AuthenticationPopup';
-    var windowOptions = 'location=0,status=0,width=800,height=400';
+    var windowOptions = 'location=0,status=0,width=800,height=600';
     var popupCallback = callback || function () { window.location.reload(); };
     var _oauthWindow = window.open(path, windowName, windowOptions);
     var _oauthInterval = window.setInterval(function () {
