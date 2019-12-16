@@ -5,6 +5,7 @@
 
 .container {
     height: 100vh;
+    margin-left: 10px;
 }
 
 .mainContent {
@@ -13,8 +14,8 @@
 }
 
 .signInButton {
-    width: 250px; 
-    background-color: #4065B3;
+    width: 250px;
+    background-color: #44619D;
 }
 
 .padding-bottom10 {
@@ -23,4 +24,54 @@
 
 .padding-top10 {
     padding-top: 10px;
+}
+
+.padding-bottom20 {
+    padding-bottom: 20px;
+}
+
+.padding-top20 {
+    padding-top: 20px;
+}
+
+.padding-bottom40 {
+    padding-bottom: 40px;
+}
+
+.scc-btn {
+    border-radius: 0;
+    background-color: #0178D4;
+}
+
+    .scc-btn:hover {
+        background-color: #0F6EBE;
+    }
+
+.scc-back-btn {
+    border-radius: 0;
+    outline: none;
+    color: black;
+    background-color: #F4F4F4;
+}
+
+    .scc-back-btn:hover {
+        color: black;
+        background-color: #EAEAEA;
+    }
+
+.secretKey-input {
+    width: 500px;
+}
+
+.steps-body {
+    margin-left: 40px;
+}
+
+.small-text {
+    font-size: 12px;
+}
+
+.pages-section {
+    max-height: 200px;
+    overflow-y: scroll;
 }

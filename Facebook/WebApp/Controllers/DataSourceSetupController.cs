@@ -23,7 +23,7 @@ namespace Sample.Connector
         /// Temporaray access code
         /// </summary>
         private const string TokenParam = "temporaryAccessCode";
-        
+
         private readonly AzureTableProvider azureTableProvider;
 
         private readonly IConnectorSourceProvider sourceProvider;
@@ -64,10 +64,10 @@ namespace Sample.Connector
                     entity.AlreadyUsed = pageJobEntityList.Any();
                 }
             }
-            
+
             return entities;
         }
-        
+
         [HttpPost]
         [Route("api/ConnectorSetup/StoreToken")]
         public async Task<bool> StoreToken([FromBody] Dictionary<string, string> tokenInfo)
@@ -75,7 +75,7 @@ namespace Sample.Connector
             await sourceProvider.StoreOAuthToken(tokenInfo[TokenParam], tokenInfo["redirectUrl"], tokenInfo["jobId"]);
             return true;
         }
-        
+
         [HttpGet]
         [Route("api/ConnectorSetup/DeleteToken")]
         public bool DeleteToken([FromUri] string jobType, [FromUri] string jobId)
@@ -84,7 +84,7 @@ namespace Sample.Connector
             Trace.TraceInformation("Token deleted succesfully. JobType: {0}", jobType);
             return true;
         }
-        
+
         [HttpGet]
         [Route("api/ConnectorSetup/OAuthUrl")]
         public async Task<string> GetOAuthUrl([FromUri] string jobType, [FromUri] string redirectUrl)
@@ -127,6 +127,64 @@ namespace Sample.Connector
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Update the job after relogin
+        /// </summary>
+        /// <param name="jobId">jobId partition key</param>
+        /// <returns>if source is saved successfully</returns>
+        [HttpPost]
+        [Route("api/ConnectorSetup/Update")]
+        public async Task<bool> Update([FromUri] string jobId)
+        {
+            PageJobMappingTable = azureTableProvider.GetAzureTableReference(Settings.PageJobMappingTableName);
+            Expression<Func<PageJobEntity, bool>> filter = (e => e.RowKey == jobId);
+            List<PageJobEntity> pageJobEntityList = await azureTableProvider.QueryEntitiesAsync<PageJobEntity>(PageJobMappingTable, filter);
+
+            PageJobEntity page = pageJobEntityList[0];
+            string sourceInfo = await sourceProvider.GetAuthTokenForResource(page.PartitionKey, jobId);
+
+            PageJobEntity pageJobEntity = new PageJobEntity(page.PartitionKey, jobId);
+            pageJobEntity.SourceInfo = sourceInfo;
+
+            await azureTableProvider.InsertOrReplaceEntityAsync(PageJobMappingTable, pageJobEntity);
+            Trace.TraceInformation("Job update complete page successfully saved for jobId: {0}", jobId);
+
+            try
+            {
+                Trace.TraceInformation("Job with JobId: {0} subscribing to webhook", jobId);
+                await sourceProvider.Subscribe(pageJobEntity.SourceInfo);
+                Trace.TraceInformation("Job with JobId: {0} successfully subscribed to webhook", jobId);
+            }
+            catch (Exception e)
+            {
+                Trace.TraceInformation("Job with JobId: {0} subscribed to webhook failed with error: {1}", jobId, e.Message);
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Check if the job is for setup or relogin
+        /// </summary>
+        /// <param name="jobId">jobId partition key</param>
+        /// <returns>true if scenario is for Relogin</returns>
+        [HttpGet]
+        [Route("api/ConnectorSetup/IsRelogin")]
+        public async Task<bool> IsRelogin([FromUri] string jobId)
+        {
+            PageJobMappingTable = azureTableProvider.GetAzureTableReference(Settings.PageJobMappingTableName);
+            Expression<Func<PageJobEntity, bool>> filter = (e => e.RowKey == jobId);
+            List<PageJobEntity> pageJobEntityList = await azureTableProvider.QueryEntitiesAsync<PageJobEntity>(PageJobMappingTable, filter);
+
+            if (pageJobEntityList.Any())
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

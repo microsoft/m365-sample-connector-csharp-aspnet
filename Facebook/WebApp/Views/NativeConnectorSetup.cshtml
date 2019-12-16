@@ -6,57 +6,71 @@
 	<link rel="stylesheet" href="~/Content/style.css" />
 </head>
 <body ng-app="MainApp">
-	<div align="center">
-		<h1>Connector for M365 Import</h1>
-	</div>
 	<div class="container" ng-controller="NativeConnectorSetupCtrl">
-		<div class="mainContent">
-			<div class="row justify-content-center" ng-show="!isLoginComplete">
-				<div class="">
-					<div class="form-group">
-						<input type="password" ng-model="sharedSecretKey" class="form-control" placeholder="password" />
-					</div>
-					<button class="btn btn-primary" ng-click="login()">Login to Connector Service</button>
+		<div class="container">
+			<div class="row" ng-show="!isLoginComplete">
+				<div class="col">
+					<div class="row padding-bottom10"><h4>Authorize Microsoft 365 to import data</h4></div>
+					<div class="row padding-bottom20">Provide below the APISecretKey that you defined during creation of web app resource in Azure and login to your web app</div>
+					<div class="row padding-bottom20"><input class="form-control secretKey-input" type="password" ng-model="sharedSecretKey" placeholder="Paste APISecretKey value" /></div>
+					<div class="row"><button class="btn btn-primary scc-btn" ng-click="login()">Login web app</button></div>
 				</div>
 			</div>
-			<div class="row justify-content-center" ng-show="isSetupComplete">
-				<div style="max-width:50%">
-					<span>{{pageSaveMessage}}</span>
+			<div class="row" ng-show="isLoginComplete">
+				<div class="col padding-bottom40"><div class="row"><h4>Configure Facebook connector app</h4></div></div>
+				<div class="w-100"></div>
+				<div class="col-3" style="border-right: 1px solid grey">
+					<div class="row padding-bottom20" ng-show="!isSetupComplete && !isAuthenticated"><b>Log in with Facebook</b></div>
+					<div class="row padding-bottom20" ng-show="!(!isSetupComplete && !isAuthenticated)">Log in with Facebook</div>
+					<div class="row padding-bottom20" ng-show="!isSetupComplete && isAuthenticated && !isRelogin"><b>Select Facebook business pages</b></div>
+					<div class="row padding-bottom20" ng-show="!(!isSetupComplete && isAuthenticated) && !isRelogin">Select Facebook business pages</div>
+					<div class="row padding-bottom20" ng-show="isSetupComplete"><b>Configuration complete</b></div>
+					<div class="row padding-bottom20" ng-show="!isSetupComplete">Configuration complete</div>
 				</div>
-			</div>
-			<div class="row justify-content-center padding-top10" ng-show="isSetupComplete">
-				<div>
-					<button class="btn btn-success" ng-click="finishSetup()">Finish</button>
-				</div>
-			</div>
-			<div class="row justify-content-center" ng-show="!isSetupComplete && isLoginComplete">
-				<div ng-show="!isAuthenticated">
-					<div class="row padding-bottom10 padding-top10">
-						<button class="btn btn-primary signInButton" ng-click="openPopop()" ng-disabled="isbusy">Login with Facebook</button>
-					</div>
-					<div class="row padding-bottom10 padding-top10" ng-show="noPageinAccount">
-						<span style="color:Red">{{errorMessage}}</span><br />
-					</div>
-				</div>
-				<div class="padding-top10" ng-show="isAuthenticated">
-					<div ng-show="isEntityListVisible">
-						<h3>Select Page</h3>
-						<form>
-							<div ng-repeat="page in entities">
-								<div ng-if="page.AlreadyUsed" data-toggle="tooltip" data-placement="right" title="Job already exsists for this Page">
-									<input type="radio" name="pageRadio" ng-disabled="page.AlreadyUsed" value="{{page.Name}}" />{{page.Name}}
-								</div>
-								<div ng-if="!page.AlreadyUsed">
-									<input type="radio" name="pageRadio" ng-model="page.selected" value="{{page.Name}}" />{{page.Name}}
-								</div>
+				<div class="col">
+					<div class="row padding-bottom20" ng-show="!isSetupComplete && !isAuthenticated">
+						<div class="col steps-body">
+							<div class="row padding-bottom10 padding-top10 justify-content-center">
+								<button class="btn btn-primary signInButton" ng-click="openPopop()" ng-disabled="isbusy">Login with Facebook</button>
 							</div>
-						</form>
-						<div class="padding-top10">
-							<button class="btn btn-primary" ng-click="saveJob()">Save</button>
+							<div class="row padding-bottom10 padding-top10" ng-show="noPageinAccount">
+								<span style="color:Red">{{errorMessage}}</span><br />
+							</div>
 						</div>
 					</div>
-					<div class="padding-top10" ng-show="noPageSelected">
-						<span style="color:Red">{{errorMessage}}</span><br />
+					<div class="row padding-bottom20" ng-show="!isSetupComplete && isAuthenticated && !isRelogin">
+						<div class="col steps-body">
+							<div class="row" ng-show="isEntityListVisible">
+								<div class="col">
+									<div class="row padding-bottom20">Which Facebook business page do you want to archive in Microsoft 365?</div>
+									<div class="row padding-bottom10 small-text">
+										<b>Only one page can be selected for a connector instance. If you want to add multiple pages, add Facebook connector again and choose the required page. You will not be able to choose pages which are already setup for import.</b>
+									</div>
+									<div class="row padding-bottom40 pages-section" style="padding-left: 10px; margin-bottom: 20px">
+										<form>
+											<div ng-repeat="page in entities">
+												<div ng-if="page.AlreadyUsed" data-toggle="tooltip" data-placement="right" title="Job already exists for this Page">
+													<input type="radio" name="pageRadio" ng-disabled="page.AlreadyUsed" value="{{page.Name}}" />&nbsp;{{page.Name}}
+												</div>
+												<div ng-if="!page.AlreadyUsed">
+													<input type="radio" name="pageRadio" ng-model="page.selected" value="{{page.Name}}" />&nbsp;{{page.Name}}
+												</div>
+											</div>
+										</form>
+									</div>
+									<div class="row padding-top10"><button class="btn scc-back-btn" style="margin-right: 20px" ng-click="finishSetup()">Cancel</button><button class="btn btn-primary scc-btn" ng-click="saveJob()">Next</button></div>
+								</div>
+							</div>
+							<div class="row padding-top10" ng-show="noPageSelected">
+								<span style="color:Red">{{errorMessage}}</span><br />
+							</div>
+						</div>
+					</div>
+					<div class="row padding-bottom20" ng-show="isSetupComplete">
+						<div class="col steps-body">
+							<div class="row padding-bottom20">{{pageSaveMessage}}</div>
+							<div class="row"><button class="btn btn-primary scc-btn" ng-click="finishSetup()">Continue</button></div>
+						</div>
 					</div>
 				</div>
 			</div>

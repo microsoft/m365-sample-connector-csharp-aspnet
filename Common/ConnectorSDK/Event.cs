@@ -11,7 +11,6 @@ namespace Sample.Connector
     /// </summary>
     public class DownloadComplete
     {
-        public string jobId;
         public string taskId;
         public Status status;
 
@@ -57,8 +56,5 @@ namespace Sample.Connector
         public DateTime TimeStamp { get; set; }
 
         public string ChangeType { get; set; }
-
-        public string JobId { get; set; }
     }
-
 }
