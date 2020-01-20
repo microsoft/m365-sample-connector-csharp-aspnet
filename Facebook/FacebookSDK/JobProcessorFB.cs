@@ -308,8 +308,7 @@ namespace Sample.Connector.FacebookSDK
             {
                 Id = user?.Id,
                 UserProfilePhotoUrl = user?.Picture?.Data?.Url ?? "",
-                Name = user?.Name ?? "Anonymous",
-                EmailAddress = user?.Id ?? "anonymous"
+                Name = user?.Name ?? "Anonymous"
             };
         }
     }
