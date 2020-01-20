@@ -61,19 +61,6 @@ namespace Sample.Connector
                 Settings.AAdAppSecret = configSettings["AADAppSecretValue"];
                 await azureTableProvider.InsertOrReplaceEntityAsync(SettingsTable, new ConfigurationSettingsEntity("AAdAppSecret", configSettings["AADAppSecretValue"]));
             }
-
-            if (!string.IsNullOrEmpty(configSettings["AADAppUriValue"]))
-            {
-                Settings.AADAppUri = configSettings["AADAppUriValue"];
-                await azureTableProvider.InsertOrReplaceEntityAsync(SettingsTable, new ConfigurationSettingsEntity("AADAppUri", configSettings["AADAppUriValue"]));
-            }
-
-            if (!string.IsNullOrEmpty(configSettings["InstrumentationKeyValue"]))
-            {
-                Settings.APPINSIGHTS_INSTRUMENTATIONKEY = configSettings["InstrumentationKeyValue"];
-                await azureTableProvider.InsertOrReplaceEntityAsync(SettingsTable, new ConfigurationSettingsEntity("APPINSIGHTS_INSTRUMENTATIONKEY", configSettings["InstrumentationKeyValue"]));
-                TelemetryConfiguration.Active.InstrumentationKey = configSettings["InstrumentationKeyValue"];
-            }
             return true;
         }
 
@@ -91,8 +78,6 @@ namespace Sample.Connector
             configurationSettings.Add("FBVerifyTokenValue", SettingsFB.FacebookVerifyToken);
             configurationSettings.Add("AADAppIdValue", Settings.AAdAppId);
             configurationSettings.Add("AADAppSecretValue", Settings.AAdAppSecret);
-            configurationSettings.Add("AADAppUriValue", Settings.AADAppUri);
-            configurationSettings.Add("InstrumentationKeyValue", Settings.APPINSIGHTS_INSTRUMENTATIONKEY);
             return Task.FromResult(configurationSettings);
         }
     }
