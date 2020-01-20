@@ -4,7 +4,6 @@
 }
 
 .container {
-    height: 100vh;
     margin-left: 10px;
 }
 
@@ -43,9 +42,9 @@
     background-color: #0178D4;
 }
 
-    .scc-btn:hover {
-        background-color: #0F6EBE;
-    }
+.scc-btn:hover {
+    background-color: #0F6EBE;
+}
 
 .scc-back-btn {
     border-radius: 0;
@@ -54,10 +53,10 @@
     background-color: #F4F4F4;
 }
 
-    .scc-back-btn:hover {
-        color: black;
-        background-color: #EAEAEA;
-    }
+.scc-back-btn:hover {
+    color: black;
+    background-color: #EAEAEA;
+}
 
 .secretKey-input {
     width: 500px;

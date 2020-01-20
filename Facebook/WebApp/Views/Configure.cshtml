@@ -1,55 +1,51 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-	<title>Connector Configuration</title>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" />
-	<link rel="stylesheet" href="~/Content/style.css" />
+    <title>Connector Configuration</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/Content/style.css" />
 </head>
 <body ng-app="MainApp" ng-controller="ConfigureCtrl">
-	<div class="container">
-		<div class="container">
-			<div class="row" ng-show="!isLoginComplete">
-				<div class="col">
-					<div class="row padding-bottom10"><h4>Configure your connector</h4></div>
-					<div class="row padding-bottom20">Provide the tenant ID and password to configure your connector.</div>
-					<div class="row padding-bottom20"><input type="text" ng-model="tenantId" class="form-control secretKey-input" placeholder="Tenant Id" /></div>
-					<div class="row padding-bottom20"><input type="password" ng-model="sharedSecretKey" class="form-control secretKey-input" placeholder="Password" /></div>
-					<div class="row"><button class="btn btn-primary scc-btn" ng-click="login()">Set Configuration Settings</button></div>
-				</div>
-			</div>
-			<div class="row" ng-show="isLoginComplete">
-				<form id="settings" runat="server" ng-show="isLoginComplete">
-					<div class="col">
-						<div class="row padding-bottom10"><h4>Configure your connector</h4></div>
-						<div class="row padding-bottom20">Enter the configuration details.</div>
-						<div class="row">Facebook Application ID</div>
-						<div class="row padding-bottom10"><input class="form-control secretKey-input" type="text" ng-model="FBAppIdValue" placeholder="Facebook Application ID" size="40" /></div>
-						<div class="row">Facebook Application Secret</div>
-						<div class="row padding-bottom10"><input class="form-control secretKey-input" type="text" ng-model="FBAppSecretValue" placeholder="Facebook Application Secret" size="40" /></div>
-						<div class="row">Facebook Webhooks Verify Token</div>
-						<div class="row padding-bottom10"><input class="form-control secretKey-input" type="text" ng-model="FBVerifyTokenValue" placeholder="Facebook Webhooks Verify Token" size="40" /></div>
-						<div class="row">AAD Application ID</div>
-						<div class="row padding-bottom10"><input class="form-control secretKey-input" type="text" ng-model="AADAppIdValue" placeholder="AAD Application ID" size="40" /></div>
-						<div class="row">AAD Application Secret</div>
-						<div class="row padding-bottom10"><input class="form-control secretKey-input" type="text" ng-model="AADAppSecretValue" placeholder="AAD Application Secret" size="40" /></div>
-						<div class="row">AAD Application Uri</div>
-						<div class="row padding-bottom10"><input class="form-control secretKey-input" type="text" ng-model="AADAppUriValue" placeholder="AAD Application Uri" size="40" /></div>
-						<div class="row">App Insights Instrumentation Key</div>
-						<div class="row padding-bottom20"><input class="form-control secretKey-input" type="text" ng-model="InstrumentationKeyValue" placeholder="App Insights Instrumentation Key" size="40" /></div>
-						<div class="row padding-top10">
-							<input type="button" class="btn scc-back-btn" style="margin-right: 20px" value="Back to Home Page" id="Home" ng-click="Home()" />
-							<input type="button" class="btn btn-primary scc-btn" value="Save" id="SaveButton" ng-disabled="isDisabledSaveButton" ng-click="SaveConfigSettings()" />
-						</div>
-						<div class="row padding-top10"><span style="color: Green">{{configurationSavedMsg}}</span></div>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.5/angular.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-sanitize.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.5/angular-cookies.js"></script>
-	<script src="~/ClientJs/AuthInterceptor.js"></script>
-	<script src="~/ClientJs/ConfigureController.js"></script>
+<div class="container">
+    <div class="container">
+        <div class="row" ng-show="!isLoginComplete">
+            <div class="col">
+                <div class="row padding-bottom10"><h4>Configure your connector</h4></div>
+                <div class="row padding-bottom20">Provide the tenant ID and APISecretKey to configure your connector.</div>
+                <div class="row padding-bottom20"><input type="text" ng-model="tenantId" class="form-control secretKey-input" placeholder="Tenant Id"/></div>
+                <div class="row padding-bottom20"><input type="password" ng-model="sharedSecretKey" class="form-control secretKey-input" placeholder="APISecretKey"/></div>
+                <div class="row"><button class="btn btn-primary scc-btn" ng-click="login()">Set Configuration Settings</button></div>
+            </div>
+        </div>
+        <div class="row" ng-show="isLoginComplete">
+            <form id="settings" runat="server" ng-show="isLoginComplete">
+                <div class="col">
+                    <div class="row padding-bottom10"><h4>Configure your connector</h4></div>
+                    <div class="row padding-bottom20">Enter the configuration details.</div>
+                    <div class="row">Facebook Application ID</div>
+                    <div class="row padding-bottom10"><input class="form-control secretKey-input" type="text" ng-model="FBAppIdValue" placeholder="Facebook Application ID" size="40" /></div>
+                    <div class="row">Facebook Application Secret</div>
+                    <div class="row padding-bottom10"><input class="form-control secretKey-input" type="text" ng-model="FBAppSecretValue" placeholder="Facebook Application Secret" size="40" /></div>
+                    <div class="row">Facebook Webhooks Verify Token</div>
+                    <div class="row padding-bottom10"><input class="form-control secretKey-input" type="text" ng-model="FBVerifyTokenValue" placeholder="Facebook Webhooks Verify Token" size="40" /></div>
+                    <div class="row">AAD Application ID</div>
+                    <div class="row padding-bottom10"><input class="form-control secretKey-input" type="text" ng-model="AADAppIdValue" placeholder="AAD Application ID" size="40" /></div>
+                    <div class="row">AAD Application Secret</div>
+                    <div class="row padding-bottom10"><input class="form-control secretKey-input" type="text" ng-model="AADAppSecretValue" placeholder="AAD Application Secret" size="40" /></div>
+                    <div class="row padding-top10">
+                        <input type="button" class="btn scc-back-btn" style="margin-right: 20px" value="Back to Home Page" id="Home" ng-click="Home()" />
+                        <input type="button" class="btn btn-primary scc-btn" value="Save" id="SaveButton" ng-disabled="isDisabledSaveButton" ng-click="SaveConfigSettings()" />
+                    </div>
+                    <div class="row padding-top10"><span style="color: Green">{{configurationSavedMsg}}</span></div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.5/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-sanitize.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.5/angular-cookies.js"></script>
+<script src="~/ClientJs/AuthInterceptor.js"></script>
+<script src="~/ClientJs/ConfigureController.js"></script>
 </body>
 </html>
