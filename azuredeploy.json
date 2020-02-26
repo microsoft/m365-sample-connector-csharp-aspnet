@@ -5,7 +5,7 @@
     "webAppName": {
       "type": "string",
       "metadata": {
-        "description": "Provide a unique name for the connector web app. Name must be in 3 and 18 characters in length"
+        "description": "Provide a unique name for the connector web app. Name must contain only alphanumeric characters and should be 3 to 18 characters in length."
       },
 	  "minLength": 2,
 	  "maxlength": 18

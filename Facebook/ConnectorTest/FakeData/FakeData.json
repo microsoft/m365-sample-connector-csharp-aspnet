@@ -87,10 +87,11 @@
                 "attachment": {
                     "media": {
                         "image": {
-                            "height": 320,
-                            "src": "https://scontent.xx.fbcdn.net/v/t15.0-10/27259707_1160897057385747_1901025552538533888_n.jpg?_nc_cat=0&oh=5f54fddbe69ba940cfd49522150c15cf&oe=5BED3EC9",
-                            "width": 560
-                        }
+                          "height": 320,
+                          "src": "https://scontent.xx.fbcdn.net/v/t15.0-10/27259707_1160897057385747_1901025552538533888_n.jpg?_nc_cat=0&oh=5f54fddbe69ba940cfd49522150c15cf&oe=5BED3EC9",
+                          "width": 560
+                        },
+                        "source": "https://scontent.xx.fbcdn.net/v/t15.0-10/27259707_1160897057385747_1901025552538533888_n.jpg?_nc_cat=0&oh=5f54fddbe69ba940cfd49522150c15cf&oe=5BED3EC9"
                     },
                     "target": {
                         "id": "1160896804052439",
@@ -125,10 +126,11 @@
                             "attachment": {
                                 "media": {
                                     "image": {
-                                        "height": 144,
-                                        "src": "https://scontent.xx.fbcdn.net/v/t15.0-10/38947372_496220500849971_7483730052262133760_n.jpg?_nc_cat=0&oh=808adda18236eed0a67971a5f518cee6&oe=5C1C3659",
-                                        "width": 176
-                                    }
+                                      "height": 144,
+                                      "src": "https://scontent.xx.fbcdn.net/v/t15.0-10/38947372_496220500849971_7483730052262133760_n.jpg?_nc_cat=0&oh=808adda18236eed0a67971a5f518cee6&oe=5C1C3659",
+                                      "width": 176
+                                    },
+                                    "source": "https://scontent.xx.fbcdn.net/v/t15.0-10/38947372_496220500849971_7483730052262133760_n.jpg?_nc_cat=0&oh=808adda18236eed0a67971a5f518cee6&oe=5C1C3659"
                                 },
                                 "target": {
                                     "id": "496220300849991",
@@ -260,7 +262,8 @@
                   "height": 320,
                   "src": "https://scontent.xx.fbcdn.net/v/t15.0-10/26710339_1160923730716413_8423850873838370816_n.jpg?_nc_cat=0&oh=f6306d89e68ab1dd3e5a0d2b3e6085e5&oe=5B5A99E7",
                   "width": 560
-                }
+                },
+                "source": "https://scontent.xx.fbcdn.net/v/t15.0-10/26710339_1160923730716413_8423850873838370816_n.jpg?_nc_cat=0&oh=f6306d89e68ab1dd3e5a0d2b3e6085e5&oe=5B5A99E7"
               },
               "target": {
                 "id": "1160923604049759",
