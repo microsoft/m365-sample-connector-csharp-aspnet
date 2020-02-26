@@ -15,5 +15,11 @@ namespace Sample.Connector.FacebookSDK
         /// </summary>
         [JsonProperty("image")]
         public ImageFB Image { get; set; }
+
+        /// <summary>
+        /// If the attachment is a video, its URL is contained in this field
+        /// </summary>
+        [JsonProperty("source")]
+        public string Source { get; set; }
     }
 }

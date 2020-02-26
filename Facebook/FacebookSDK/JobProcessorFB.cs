@@ -11,6 +11,7 @@ namespace Sample.Connector.FacebookSDK
     using System.Web;
     using Newtonsoft.Json;
     using System.Diagnostics;
+    using System.IO;
 
     public class JobProcessorFB : JobProcessorBase
     {
@@ -18,7 +19,7 @@ namespace Sample.Connector.FacebookSDK
         /// For making Http requests
         /// </summary>
         private IDownloader downloader;
-
+        
         private readonly IUploader uploader;
 
         /// <summary>
@@ -187,6 +188,7 @@ namespace Sample.Connector.FacebookSDK
 
                         ContentAttachment attachment = new ContentAttachment()
                         {
+                            AttachmentFileName = FetchNameFromUri(attachmentItem.Media?.Image?.Src),
                             AttachmentType = attachmentItem.Type,
                             Content = downloadedContent,
                             Uri = new Uri(attachmentItem.Media?.Image?.Src),
@@ -203,6 +205,7 @@ namespace Sample.Connector.FacebookSDK
 
                     ContentAttachment attachment = new ContentAttachment()
                     {
+                        AttachmentFileName = attachmentType.Contains("share") ? "safe_image.jpg" : FetchNameFromUri(attachmentType.Contains("video") ? post.Attachments.Data[0].Media?.Source : post.Attachments.Data[0].Media?.Image?.Src),
                         AttachmentType = attachmentType,
                         Content = downloadedContent,
                         Uri = new Uri(attachmentType.Contains("video") ? post.Attachments.Data[0].Url : post.Attachments.Data[0].Media?.Image?.Src),
@@ -247,6 +250,7 @@ namespace Sample.Connector.FacebookSDK
 
                 ContentAttachment attachment = new ContentAttachment()
                 {
+                    AttachmentFileName = attachmentType.Contains("share") ? "safe_image.jpg" : FetchNameFromUri(attachmentType.Contains("video") ? comment.Attachment.Media?.Source : comment.Attachment.Media?.Image?.Src),
                     AttachmentType = attachmentType,
                     Content = downloadedContent,
                     Uri = new Uri(attachmentType.Contains("video") ? comment.Attachment.Url : comment.Attachment.Media?.Image?.Src),
@@ -290,6 +294,7 @@ namespace Sample.Connector.FacebookSDK
 
                 ContentAttachment attachment = new ContentAttachment()
                 {
+                    AttachmentFileName = attachmentType.Contains("share") ? "safe_image.jpg" : FetchNameFromUri(attachmentType.Contains("video") ? reply.Attachment.Media?.Source : reply.Attachment.Media?.Image?.Src),
                     AttachmentType = attachmentType,
                     Content = downloadedContent,
                     Uri = new Uri(attachmentType.Contains("video") ? reply.Attachment.Url : reply.Attachment.Media?.Image?.Src),
@@ -310,6 +315,22 @@ namespace Sample.Connector.FacebookSDK
                 UserProfilePhotoUrl = user?.Picture?.Data?.Url ?? "",
                 Name = user?.Name ?? "Anonymous"
             };
+        }
+
+        private static string FetchNameFromUri(string url)
+        {
+            Uri defaultUrl = new Uri("https://defaulturl");
+            Uri uri;
+            if (!Uri.TryCreate(url, UriKind.Absolute, out uri))
+            {
+                uri = new Uri(defaultUrl, url);
+            }
+            string filename = Path.GetFileName(uri.LocalPath);
+            if (String.IsNullOrEmpty(filename))
+            {
+                return "unknown";
+            }
+            return filename;
         }
     }
 
